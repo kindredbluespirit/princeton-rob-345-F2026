@@ -20,3 +20,35 @@ nodejs = "*"
 [tasks]
 lab = "jupyter lab"
 notebook = "jupyter notebook"
+
+# ── SITL simulation env (CrazySim + MuJoCo) ──────────────────────────────────
+# A drop-in stand-in for the physical Crazyflie: the real firmware runs on the
+# host and speaks cflib over udp://127.0.0.1:19850. Separate from the py3.9 lab
+# env because cflib requires Python >= 3.10.
+[feature.sim.dependencies]
+python = "3.11.*"
+numpy = "*"
+mujoco = "*"
+jinja2 = "*"
+cmake = "*"
+make = "*"
+
+[feature.sim.pypi-dependencies]
+cflib = ">=0.1.33"
+
+# GCC 14+ promoted several formerly-warning C idioms (implicit function
+# declarations, int<->pointer conversions, ...) to errors by default. The SITL
+# firmware predates that; upstream builds it with gcc ~11/12. Downgrade them so
+# the system gcc 16 can compile it. CMake seeds CMAKE_C_FLAGS from $CFLAGS on the
+# first configure, so this only takes effect in a fresh sitl_make/build/.
+[feature.sim.activation.env]
+CFLAGS = "-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -Wno-error=return-mismatch -Wno-error=declaration-missing-parameter-type"
+
+[feature.sim.tasks]
+# Only `cf2` (the SITL firmware); `make all` also pulls in the Gazebo plugin
+# target (crazysim_gz), which needs Gazebo and isn't used by the MuJoCo backend.
+sim-build = { cmd = "mkdir -p sitl_make/build && cd sitl_make/build && cmake .. && make -j cf2", cwd = "worlds/mujoco/dependencies/CrazySim/crazyflie-firmware" }
+sim = { cmd = "bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_singleagent.sh -m cf2x_T350 -x 0 -y 0", cwd = "worlds/mujoco/dependencies/CrazySim/crazyflie-firmware" }
+
+[environments]
+sim = { features = ["sim"], no-default-feature = true }

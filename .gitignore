@@ -11,3 +11,7 @@ cache/
 # lab outputs (recorded video / generated GIF)
 video_camera.avi
 anim.gif
+
+# CrazySim external checkout + MuJoCo build artifacts
+worlds/mujoco/dependencies/
+MUJOCO_LOG.TXT
