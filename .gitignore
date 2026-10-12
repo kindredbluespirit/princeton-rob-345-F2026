@@ -1,0 +1,13 @@
+# pixi
+.pixi/
+
+# python
+__pycache__/
+*.py[cod]
+
+# cflib radio cache
+cache/
+
+# lab outputs (recorded video / generated GIF)
+video_camera.avi
+anim.gif

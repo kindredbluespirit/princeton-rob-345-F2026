@@ -1,0 +1,22 @@
+[workspace]
+name = "mae345"
+description = "ROB 345/549 (Princeton, F2026) lab env — conda-forge port of env-mae345.yml"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = "3.9.*"
+sympy = "*"
+numpy = "*"
+scipy = "==1.5.2"
+matplotlib = "*"
+notebook = "*"
+jupyterlab = "*"
+opencv = "*"
+widgetsnbextension = "*"
+ipympl = "*"
+nodejs = "*"
+
+[tasks]
+lab = "jupyter lab"
+notebook = "jupyter notebook"
