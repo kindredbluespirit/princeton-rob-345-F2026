@@ -80,6 +80,19 @@ def send_for(send_fn, seconds, *args):
         time.sleep(RATE)
 
 
+def start_z_monitor(cf):
+    """Log stateEstimate.z asynchronously (non-blocking); returns the value list."""
+    zs = []
+    log_config = LogConfig(name="z", period_in_ms=50)
+    log_config.add_variable("stateEstimate.z", "float")
+    log_config.data_received_cb.add_callback(
+        lambda _ts, data, _lc: zs.append(data["stateEstimate.z"])
+    )
+    cf.log.add_config(log_config)
+    log_config.start()
+    return log_config, zs
+
+
 def main():
     cflib.crtp.init_drivers(enable_debug_driver=False)
     scan()
@@ -87,6 +100,7 @@ def main():
     print(f"Connecting to {URI} ...")
     with SyncCrazyflie(URI, cf=Crazyflie(rw_cache="./cache")) as scf:
         cf = scf.cf
+        z_log, zs = start_z_monitor(cf)
 
         # Same controller/estimator setup as the lab's Part IV.
         cf.param.set_value("stabilizer.controller", "1")
@@ -108,9 +122,16 @@ def main():
             cf.commander.send_hover_setpoint(0, 0, 0, HEIGHT * (10 - i) / 10)
             time.sleep(RATE)
 
-        print("Stopping.")
-        send_for(cf.commander.send_stop_setpoint, 1.0)
+        # Keep streaming stop setpoints after touchdown. The commander watchdog
+        # (2 s) fires the moment the stream stops, and while the drone is still
+        # inside its "flying" window (thrust over idle within the last 2 s) the
+        # supervisor latches into "Locked, reboot required" -- which needs a
+        # firmware restart. Streaming until isFlying clears avoids that.
+        print("Landing (streaming stop setpoints) ...")
+        send_for(cf.commander.send_stop_setpoint, 6.0)
+        z_log.stop()
 
+    print(f"Reached {max(zs) if zs else float('nan'):.3f} m (target {HEIGHT} m)")
     print("Done!")
 
 

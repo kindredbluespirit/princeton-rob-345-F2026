@@ -65,13 +65,19 @@ Useful launch-script flags (pass to the task, e.g.
 
 ## Notes / gotchas
 
-- **Setpoints must stream.** The firmware's commander has a watchdog: if setpoint
-  packets stop arriving, thrust is cut and the flight supervisor can drop into
-  `Locked, reboot required` (a persistent fault — the log will show
-  `SUP: Can not fly` / `SUP: Locked, reboot required`). Both `hello_crazyflie.py`
-  and the lab's `run_sequence` stream at 10 Hz, which is fine. Don't interleave
-  slow blocking calls (e.g. blocking log reads) between setpoints. If it locks,
-  just restart the sim — the launch script kills any stale `cf2`.
+- **Keep streaming setpoints until the drone has landed.** The commander has a
+  2 s watchdog; if the stream stops while the drone is still inside its "flying"
+  window (thrust above idle within the last 2 s), the supervisor latches into
+  `Locked, reboot required` — a persistent fault that needs a firmware restart,
+  and the *next* run won't take off (arming does not help). So don't cut the
+  stream right after touchdown: keep sending `send_stop_setpoint` until
+  `supervisor.info` bit 4 (`isFlying`) clears. `hello_crazyflie.py` streams stop
+  setpoints for 6 s after the descent, which is enough to fly repeatedly. If it
+  ever does lock, restart the sim (the launch script kills a stale `cf2`).
+- **Clear a stale simulator before restarting.** The upstream launch script only
+  `pkill`s `cf2`, not `crazysim.py`. If the sim was killed uncleanly, a leftover
+  `crazysim.py` keeps port 19950 and the next `pixi run -e sim sim` dies with
+  `Address already in use`. Run `pkill -f '[c]razysim.py'` first.
 - **The sim env is Python 3.11**, separate from the py3.9 lab env, because
   `cflib` requires Python ≥ 3.10.
 - **Compiler compat.** The SITL firmware predates GCC 14, which turned several
