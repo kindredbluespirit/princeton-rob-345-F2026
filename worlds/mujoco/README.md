@@ -18,6 +18,8 @@ Everything here is driven by the `sim` environment defined in the repo-root
 worlds/mujoco/
 ├── README.md                 # this file
 ├── hello_crazyflie.py        # smoke test: scan → connect → take off → land
+├── scene_course.xml          # example Lab 2 pipe course (MuJoCo scene)
+├── lab_course.py             # the same course as Part III numbers + sanity check
 └── dependencies/
     └── CrazySim/             # external clone (git-ignored)
         └── crazyflie-firmware/   # SITL firmware + MuJoCo launch scripts
@@ -57,6 +59,27 @@ auto-discovers it (cflib's UDP driver probes ports 19850–19859). A swarm uses
 
 To point the lab notebook at the simulator, use that `udp://…` URI where it
 builds its `radio://0/<n>/2M` URI.
+
+## Example Lab 2 course
+
+`scene_course.xml` is a 3 m × 3 m "netted cage" (orange tape) with seven PVC
+pipes, a start marker at the origin and a goal square at (2.55, 2.55). It is the
+sim twin of the Part III numbers in `lab_course.py`, so the notebook plans in
+exactly the world the simulator flies in.
+
+```bash
+# Terminal 1 — firmware + viewer, with the course loaded
+pixi run -e sim sim-course
+#   (equivalent: pixi run -e sim sim -- -s "$PWD/worlds/mujoco/scene_course.xml")
+
+# Terminal 2 — print the Part III block + a connectivity check
+pixi run -e sim python worlds/mujoco/lab_course.py
+```
+
+Frame: the drone spawns at world (0, 0) facing +X and zeroes its estimator
+there, so the lab's arena frame (origin = start, +x forward, +y left) **is** the
+MuJoCo world frame — no coordinate conversion needed for this course. Pipes are
+0.05 m radius in the scene and appear inflated to 0.20 m in the planner numbers.
 
 Useful launch-script flags (pass to the task, e.g.
 `pixi run -e sim sim -- --sensor-noise`):

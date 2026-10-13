@@ -50,6 +50,9 @@ CFLAGS = "-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-
 # target (crazysim_gz), which needs Gazebo and isn't used by the MuJoCo backend.
 sim-build = { cmd = "mkdir -p sitl_make/build && cd sitl_make/build && cmake .. && make -j cf2", cwd = "worlds/mujoco/dependencies/CrazySim/crazyflie-firmware" }
 sim = { cmd = "bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_singleagent.sh -m cf2x_T350 -x 0 -y 0", cwd = "worlds/mujoco/dependencies/CrazySim/crazyflie-firmware" }
+# Same as `sim`, but loads the example Lab 2 pipe course (worlds/mujoco/scene_course.xml).
+# Runs from the repo root (no `cwd`) so the relative --scene path resolves there.
+sim-course = { cmd = "bash worlds/mujoco/dependencies/CrazySim/crazyflie-firmware/tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_singleagent.sh -m cf2x_T350 -x 0 -y 0 -s worlds/mujoco/scene_course.xml" }
 
 [environments]
 sim = { features = ["sim"], no-default-feature = true }
