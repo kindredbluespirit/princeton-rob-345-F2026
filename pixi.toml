@@ -16,6 +16,7 @@ opencv = "*"
 widgetsnbextension = "*"
 ipympl = "*"
 nodejs = "*"
+pip = ">=25.2,<26"
 
 [tasks]
 lab = "jupyter lab"
