@@ -53,3 +53,8 @@ sim = { cmd = "bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sit
 
 [environments]
 sim = { features = ["sim"], no-default-feature = true }
+
+[pypi-dependencies]
+cflib = ">=0.1.13.1, <0.2"
+libusb = ">=1.0.27.post4, <2"
+cfclient = ">=2019.9, <2020"

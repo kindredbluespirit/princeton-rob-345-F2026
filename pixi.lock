@@ -10,6 +10,8 @@ environments:
   default:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
+    indexes:
+    - https://pypi.org/simple
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -350,6 +352,16 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/wheel-0.45.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.14-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-3.23.0-pyhd8ed1ab_0.conda
+      - pypi: https://files.pythonhosted.org/packages/01/2e/f3b5b00d9bfc9898fb91a40e53ab85019bc81ca2975a10b302fdad91fa0e/pkg_about-1.2.11-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/28/b8/27e6312e86408a44fe16bd28ee12dd98608b39f7e7e57884a24e8f29b573/pyusb-1.3.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/32/91/30151a39f7570f448ed84529390628a651d7f27c87d73c9b887f8189695e/docutils-0.23-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/36/3d/347ea6e1ea8337cbc7fb1fdbf175023200bd7aa364a08104d42fa2b9fd56/cflib-0.1.13.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/3b/00/2344469e2084fb287c2e0b57b72910309874c3245463acd6cf5e3db69324/appdirs-1.4.4-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/7b/24/d1caf86b63060c457812bb400c0fa6762a1a3182de8e839f7070044186a2/qtm-2.1.2-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/7b/34/5702b3b7cafe99be1d94b42f100e8cc5e6957b761fcb1cf5f72d492851da/pyqtgraph-0.13.7-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/89/41/ba1396ebed0dcfd09854addea45323c93f498dc7c45d855943ab31791194/Quamash-0.6.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a9/5e/3559dfb1f703fc9f395fb33f7b03d872b41b3480835b0fd0f2ddd90b9533/cfclient-2019.9.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/c0/86/bd57315264483daef8c8dda38109b54e2da0de7a2fe1e06d8bc6a9a78573/libusb-1.0.27.post4-py3-none-any.whl
   sim:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
@@ -6607,6 +6619,28 @@ packages:
   run_exports: {}
   size: 24839
   timestamp: 1791091060207
+- pypi: https://files.pythonhosted.org/packages/01/2e/f3b5b00d9bfc9898fb91a40e53ab85019bc81ca2975a10b302fdad91fa0e/pkg_about-1.2.11-py3-none-any.whl
+  name: pkg-about
+  version: 1.2.11
+  sha256: 68781d1091442a06aaec510293555f34ef3a1e8b03a2cde03fd79c1d6fcf6b2e
+  requires_dist:
+  - setuptools>=77.0.3
+  - packaging>=24.2.0
+  - importlib-metadata>=8.6.1
+  - tomli>=2.2.1 ; python_full_version < '3.11'
+  - docutils>=0.21.2
+  - sphinx>=7.4.7 ; extra == 'doc'
+  - sphinx-autodoc-typehints>=2.3.0 ; extra == 'doc'
+  - sphinx-toolbox>=3.9.0 ; extra == 'doc'
+  - sphinx-tabs>=3.4.5 ; extra == 'doc'
+  - sphinx-copybutton>=0.5.2 ; extra == 'doc'
+  - sphinxcontrib-spelling>=8.0.0 ; extra == 'doc'
+  - sphinx-lint>=1.0.0 ; extra == 'doc'
+  - restructuredtext-lint>=1.4.0 ; extra == 'doc'
+  - nbsphinx>=0.9.7 ; extra == 'doc'
+  - deepdiff>=8.4.2 ; extra == 'test'
+  - rich>=13.9.4 ; extra == 'test'
+  requires_python: '>=3.9.0,<4.0.0'
 - pypi: https://files.pythonhosted.org/packages/09/7d/af933f0f6e0767995b4e2d705a0665e454d1c19402aa7e895de3951ebb04/scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
   name: scipy
   version: 1.17.1
@@ -6661,6 +6695,21 @@ packages:
   version: 1.3.1
   sha256: bf9b754557af4717fe80c2b07cc2b923a9151f5c08d17bdb5345dac09d6a0430
   requires_python: '>=3.9.0'
+- pypi: https://files.pythonhosted.org/packages/32/91/30151a39f7570f448ed84529390628a651d7f27c87d73c9b887f8189695e/docutils-0.23-py3-none-any.whl
+  name: docutils
+  version: '0.23'
+  sha256: 25d013af9bf23bc1c7b2b093dff4208166c53a94786c9e447808335ef1185fea
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/36/3d/347ea6e1ea8337cbc7fb1fdbf175023200bd7aa364a08104d42fa2b9fd56/cflib-0.1.13.1-py2.py3-none-any.whl
+  name: cflib
+  version: 0.1.13.1
+  sha256: 01c4c472a14d4a788dec917f0b56b077d6319c767aaf37eb94704057b312eed6
+  requires_dist:
+  - pyusb>=1.0.0b2
+- pypi: https://files.pythonhosted.org/packages/3b/00/2344469e2084fb287c2e0b57b72910309874c3245463acd6cf5e3db69324/appdirs-1.4.4-py2.py3-none-any.whl
+  name: appdirs
+  version: 1.4.4
+  sha256: a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128
 - pypi: https://files.pythonhosted.org/packages/6f/e1/a7c83535749332825f02d6693868f8ee9ae99c4104e60a483773bb652c0e/libusb_package-1.0.30.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
   name: libusb-package
   version: 1.0.30.0
@@ -6673,6 +6722,56 @@ packages:
   version: 6.0.3
   sha256: b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d
   requires_python: '>=3.8'
+- pypi: https://files.pythonhosted.org/packages/7b/24/d1caf86b63060c457812bb400c0fa6762a1a3182de8e839f7070044186a2/qtm-2.1.2-py3-none-any.whl
+  name: qtm
+  version: 2.1.2
+  sha256: a92f8ddaa0f331cd256e2d9fd100c790a6d2d25b2b1146787ebd17ab42e105e9
+  requires_python: '>=3.5.3'
+- pypi: https://files.pythonhosted.org/packages/7b/34/5702b3b7cafe99be1d94b42f100e8cc5e6957b761fcb1cf5f72d492851da/pyqtgraph-0.13.7-py3-none-any.whl
+  name: pyqtgraph
+  version: 0.13.7
+  sha256: 7754edbefb6c367fa0dfb176e2d0610da3ada20aa7a5318516c74af5fb72bf7a
+  requires_dist:
+  - numpy>=1.22.0
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/89/41/ba1396ebed0dcfd09854addea45323c93f498dc7c45d855943ab31791194/Quamash-0.6.1-py3-none-any.whl
+  name: quamash
+  version: 0.6.1
+  sha256: efe91865bba9c0afa898d037d152ef4e6eb7e714b29d632543cc14c86890cea3
+  requires_dist:
+  - pytest ; extra == 'test'
+- pypi: https://files.pythonhosted.org/packages/a9/5e/3559dfb1f703fc9f395fb33f7b03d872b41b3480835b0fd0f2ddd90b9533/cfclient-2019.9.tar.gz
+  name: cfclient
+  version: '2019.9'
+  sha256: 2596ebe2f92250fca87ebe6485eeca67686d31c0cfb8468d62825b2670236713
+  requires_dist:
+  - cflib>=0.1.8
+  - appdirs>=1.4.0
+  - pyzmq
+  - pyqtgraph>=0.10
+  - pyyaml
+  - quamash==0.6.1
+  - qtm>=2.0.2
+  - pyqt5==5.9.2 ; extra == 'qt5'
+- pypi: https://files.pythonhosted.org/packages/c0/86/bd57315264483daef8c8dda38109b54e2da0de7a2fe1e06d8bc6a9a78573/libusb-1.0.27.post4-py3-none-any.whl
+  name: libusb
+  version: 1.0.27.post4
+  sha256: c8b3d61b532092c0fa705ac3bd963d55edcbd54d7176a660edf2211b3842705e
+  requires_dist:
+  - setuptools>=75.8.0
+  - pkg-about>=1.2.9
+  - sphinx>=7.4.7 ; extra == 'doc'
+  - sphinx-autodoc-typehints>=2.3.0 ; extra == 'doc'
+  - sphinx-toolbox>=3.8.2 ; extra == 'doc'
+  - sphinx-tabs>=3.4.5 ; extra == 'doc'
+  - sphinx-copybutton>=0.5.2 ; extra == 'doc'
+  - sphinxcontrib-spelling>=8.0.0 ; extra == 'doc'
+  - sphinx-lint>=1.0.0 ; extra == 'doc'
+  - restructuredtext-lint>=1.4.0 ; extra == 'doc'
+  - nbsphinx>=0.9.6 ; extra == 'doc'
+  - deepdiff>=8.2.0 ; extra == 'test'
+  - rich>=13.9.4 ; extra == 'test'
+  requires_python: '>=3.9.0,<4.0.0'
 - pypi: https://files.pythonhosted.org/packages/d4/88/9b10b72519a2c16e56675c12fbb46e1be1bde12b863becfcc41bcda2dfa6/cflib-0.1.34-py3-none-any.whl
   name: cflib
   version: 0.1.34
