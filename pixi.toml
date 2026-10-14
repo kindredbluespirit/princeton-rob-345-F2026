@@ -54,8 +54,20 @@ sim = { cmd = "bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sit
 # Runs from the repo root (no `cwd`) so the relative --scene path resolves there.
 sim-course = { cmd = "bash worlds/mujoco/dependencies/CrazySim/crazyflie-firmware/tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_singleagent.sh -m cf2x_T350 -x 0 -y 0 -s worlds/mujoco/scene_course.xml" }
 
+# ── Notebook layer for Lab 2 ─────────────────────────────────────────────────
+# Makes the simulator's py3.11 stack (feature.sim) usable as a Jupyter kernel, so
+# ONE environment runs the whole Lab 2 notebook (Parts I-IV) *and* the sim server.
+# Composed on top of feature.sim rather than editing it, so the `sim` env is
+# untouched. `packaging < 26` is required: cflib pins packaging~=25.0, and conda
+# ipykernel would otherwise drag in packaging 26.x and break the pypi solve.
+[feature.notebook.dependencies]
+matplotlib = "*"
+ipykernel = "*"
+packaging = ">=25,<26"
+
 [environments]
 sim = { features = ["sim"], no-default-feature = true }
+lab2 = { features = ["sim", "notebook"], no-default-feature = true }
 
 [pypi-dependencies]
 cflib = ">=0.1.13.1, <0.2"
